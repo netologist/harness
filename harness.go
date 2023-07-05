@@ -6,7 +6,6 @@ import (
 	"os"
 	"os/signal"
 	"sync"
-	"syscall"
 	"time"
 )
 
@@ -71,7 +70,7 @@ func (h *handler) Start(ctx context.Context) {
 		// Wait for termination signal or cancellation
 		signalCh := make(chan os.Signal, 1)
 		// defer close(signalCh)
-		signal.Notify(signalCh, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)
+		signal.Notify(signalCh, h.options.signals...)
 
 		// Wait for all runners to complete
 		select {

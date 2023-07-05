@@ -79,7 +79,8 @@ func main() {
 		}),
 		harness.OnCompleted(func() {
 			log.Printf("successfully completed")
-		})
+		}),
+		harnes.SetSignal(os.Interrupt, syscall.SIGINT, syscall.SIGTERM), // if you want customise signals
 	).Start(context.Background())
 }
 ```
